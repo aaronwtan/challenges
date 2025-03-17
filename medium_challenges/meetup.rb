@@ -75,20 +75,6 @@ class Meetup
   private
 
   def find_dates(weekday)
-    (@start_date...@start_date.next_month).select do |date|
-      day_of_the_week_is?(date, weekday)
-    end
-  end
-
-  def day_of_the_week_is?(date, weekday)
-    case weekday.capitalize
-    when 'Monday'    then date.monday?
-    when 'Tuesday'   then date.tuesday?
-    when 'Wednesday' then date.wednesday?
-    when 'Thursday'  then date.thursday?
-    when 'Friday'    then date.friday?
-    when 'Saturday'  then date.saturday?
-    when 'Sunday'    then date.sunday?
-    end
+    (@start_date...@start_date.next_month).select(&:"#{weekday.downcase}?")
   end
 end
